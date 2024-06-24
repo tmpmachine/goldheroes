@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Gold Heroes</title>
+  <meta name="viewport" content="width=device-width"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
+  <!-- pwa manifest -->
+  <link rel="manifest" href="manifest.json"/>
+
+</head>
+<body>
+  
+  
+  [btn 'Clear app data' data-onclick="clear-app-data"]
+  [btn 'Cache latest version' onclick="pwaCacher.Cache()"]
+  [btn 'Clear app cache' onclick="pwaCacher.ClearCache()"]
+  [hr]
+  
+  <!-- # stats -->
+  [
+    Gold : [s ._txtGold]
+    [btn 'Deposit' data-onclick="deposit"]
+    [btn 'Edit' data-onclick="edit"]
+  ]
+  
+  <!-- # rewards -->
+  [h4 'Rewards']
+  [btn 'Add reward' data-onclick="add-reward"]
+  [ ._listRewards data-onclick="handle-click-list"]
+  
+  <!-- # inventory -->
+  [h4 'Inventory']
+  [ ._listInventory data-onclick="handle-click-inventory"]
+
+  <template id="tmp-reward">
+    [ data-kind="item"
+      [ .name]
+      [
+        Price: [s .price]
+      ]
+      [btn 'Buy' data-action="buy"]
+      [btn 'Remove' data-action="remove"]
+    ]
+  </template>
+  
+  <template id="tmp-inventory">
+    [ data-kind="item"
+      [ .name]
+      [
+        Stock: [s .stock]
+      ]
+      [btn 'Use' data-action="use"]
+      [btn 'Remove' data-action="remove"]
+    ]
+  </template>
+  
+  
+  <script src="data-server.js"></script>
+  <script src="app-data.js"></script>
+  <script src="list-container-builder.js"></script>
+  <script src="stats-component.js"></script>
+  <script src="inventory-component.js"></script>
+  <script src="reward-component.js"></script>
+  <script src="ui.js"></script>
+  <script src="inventory-ui.js"></script>
+  <script src="dom-events.js"></script>
+  <script src="app.js"></script>
+  <script src="pwa-cacher.js"></script>
+  
+  <script src="index.js"></script>
+  
+  
+</body>
+</html>

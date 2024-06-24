@@ -1,0 +1,14 @@
+{
+  "name": "Gold Heroes",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNmE38-ckZSxizmsxGvWCQWE2UxLcwcHWIH4kGJ_MidDbh0pCHParoHMs6f920gqLK6wSMcd1VYHOup9eHHJe-acIz4sjJm8TJ0X7GdfH_UUVDXIL0vNg7R4BAVkPIyF4v4pKEaFSAMqXc/s192-c-rw/2021-11-03+23_23_36-Untitled+%25282%2529+-+Windows+Photo+Viewer.png",
+      "type": "image/png",
+      "sizes": "192x192"  
+    }
+  ],
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#202020",
+  "theme_color": "#202020"
+}
