@@ -1,23 +1,25 @@
 {
-  "files": [
+  "js": [
+    "js/app.js",
+    "js/app-data.js",
+    "js/dom-events.js",
+    "js/components/inventory-component.js",
+    "js/components/reward-component.js",
+    "js/components/stats-component.js",
+    "js/ui.js",
+    "js/uis/inventory-ui.js",
+    "js/utils/data-server.js",
+    "js/utils/list-container-builder.js"
+  ],
+  "css": [
     "/css/style.css",
-    "/css/widgets.css",
-    "/app-data.js",
-    "/app.js",
-    "/data-server.js",
-    "/dom-events.js",
-    "/index.js",
-    "/inventory-component.js",
-    "/inventory-ui.js",
-    "/list-container-builder.js",
-    "/reward-component.js",
-    "/stats-component.js",
-    "/ui.js"
+    "/css/widgets.css"
   ],
   "root": [
     "pwa-cacher.js",
     "manifest.json",
     "index.html",
+    "/index.js",
     "./"
   ]
 }
