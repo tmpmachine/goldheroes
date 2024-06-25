@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
 
   <title>Gold Heroes</title>
@@ -9,50 +9,94 @@
   
   <!-- pwa manifest -->
   <link rel="manifest" href="manifest.json"/>
+  <link href="css/normalize.min.css" rel="stylesheet"/>
   <link href="css/widgets.css" rel="stylesheet"/>
   <link href="css/style.css" rel="stylesheet"/>
+  <link href="css/skin.css" rel="stylesheet"/>
 
 </head>
-<body>
+<!-- # body-->
+<body class="skin-body-default h-100">
   
+  <section data-view-group="screens" data-view-states="main">
+    
+    <section data-view-group="screens" data-view-name="main">
+      <!-- screen: main-->
+      
+      [ .container-1rem
+      
+        [ .d-flex .justify-content-end
+          [btn 'Settings' .skin-btn-1 data-onclick="navigate-screens" data-target="settings"]
+        ]
+        [ .void .void-full]
+      
+        <!-- # stats -->
+        [
+          Gold : [s ._txtGold]
+          [btn 'Deposit' data-onclick="deposit" .skin-btn-1]
+          [btn 'Edit' data-onclick="edit" .skin-btn-1]
+        ]
+        
+        <!-- # rewards (container) -->
+        [h4 'Rewards']
+        [btn 'Add reward' data-onclick="add-reward" .skin-btn-1]
+        [ .void .void-half]
+        [ ._listRewards data-onclick="handle-click-reward" .wg-Reward]
+        
+        <!-- # inventory (container) -->
+        [h4 'Inventory']
+        [ ._listInventory data-onclick="handle-click-inventory"]
+      ]
+    </section>
+    
+    <section data-view-group="screens" data-view-name="settings">
+      <!-- screen: settings-->
+      
+      [ .container-1rem
+        [ .d-flex
+          [btn 'Back' .skin-btn-1 data-onclick="navigate-screens" data-target="main"]
+        ]
+        [ .void .void-full]
+      
+        [ .d-flex .gap-half .flex-column .text-center
+          Updates & Offline Access
+          [btn 'Cache latest version' onclick="pwaCacher.Cache()" .skin-btn-1]
+          [btn 'Clear app cache' onclick="pwaCacher.ClearCache()" .skin-btn-1]
+          [ .void .void-half]
+          
+          Application Data
+          [btn 'Backup' data-onclick="backup" .skin-btn-1]
+          [btn 'Restore' data-onclick="restore" .skin-btn-1]
+          [ .void .void-quarter]
+          
+          [btn 'Clear app data' data-onclick="clear-app-data" .skin-btn-1]
+        ]
+      ]
+    </section>
+    
+  </section>
+
   
-  [btn 'Clear app data' data-onclick="clear-app-data"]
-  [btn 'Cache latest version' onclick="pwaCacher.Cache()"]
-  [btn 'Clear app cache' onclick="pwaCacher.ClearCache()"]
-  [hr]
-  
-  <!-- # stats -->
-  [
-    Gold : [s ._txtGold]
-    [btn 'Deposit' data-onclick="deposit"]
-    [btn 'Edit' data-onclick="edit"]
-  ]
-  
-  <!-- # rewards -->
-  [h4 'Rewards']
-  [btn 'Add reward' data-onclick="add-reward"]
-  [ ._listRewards data-onclick="handle-click-list" .wg-Reward]
-  
-  <!-- # inventory -->
-  [h4 'Inventory']
-  [ ._listInventory data-onclick="handle-click-inventory"]
+  <!-- # templates -->
 
   <template id="tmp-reward">
     [ data-kind="item" .wg-RewardItem
-    <!-- # tmp-reward -->
+    <!-- # reward ((item) -->
       [ .d-flex .justify-content-between .gap-half
         [
           [ .name]
-          [
+          [small
             Price: [s .price]
           ]
         ]
-        [ .d-flex .gap-half .flex-column
+        [ .d-flex .gap-half .flex-column .align-items-end
           [ .d-flex .justify-content-end .gap-half
-            [btn 'Buy' data-action="buy"]
-            [btn 'Remove' data-action="remove"]
+            [btn 'Buy' data-action="buy" .skin-btn-1]
+            [btn 'Remove' data-action="remove" .skin-btn-1]
+            [btn 'Edit' data-action="edit" .skin-btn-1]
           ]
-          [s .buy-count-info]
+          <!-- claim info -->
+          [small .buy-count-info]
         ]
       ]
     ]
@@ -60,13 +104,13 @@
   
   <template id="tmp-inventory">
     [ data-kind="item"
-    <!-- # tmp-inventory -->
+    <!-- # inventory (item) -->
       [ .name]
       [
         Stock: [s .stock]
       ]
-      [btn 'Use' data-action="use"]
-      [btn 'Remove' data-action="remove"]
+      [btn 'Use' data-action="use" .skin-btn-1]
+      [btn 'Remove' data-action="remove" .skin-btn-1]
     ]
   </template>
   

@@ -2,12 +2,15 @@ let DOMEvents = (function() {
     
   let eventsMap = { 
     onclick: {
+      'navigate-screens': (evt) => ui.NavigateScreens(evt),
       'clear-app-data': () => app.ClearAppData(),
-    	'handle-click-list': (evt) => ui.HandleClickList(evt),
+    	'handle-click-reward': (evt) => uiReward.HandleClickList(evt),
     	'handle-click-inventory': (evt) => uiInventory.HandleClickList(evt),
     	'deposit': () => ui.Deposit(),
     	'edit': () => ui.Edit(),
-    	'add-reward': () => ui.AddReward(),
+    	'backup': () => ui.BackupData(),
+    	'restore': () => ui.RestoreData(),
+    	'add-reward': () => uiReward.AddReward(),
     },
   }; // to do
   

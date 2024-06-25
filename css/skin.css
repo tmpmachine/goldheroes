@@ -1,0 +1,23 @@
+.container-1rem{padding:1rem}
+
+.skin-body-default {
+  font-family: sans-serif;
+  line-height: 1.5;
+  background: #f3f3f3;
+}
+.skin-btn-1 {
+    background: #10d9e1;
+    border: 0;
+    color: white;
+    padding: 0.3em 1.2em;
+    border-radius: 1rem;
+    font-size: 0.75em;
+}
+.skin-btn-1:hover {
+    cursor: pointer;
+    background: #2ac7cd;
+}
+.skin-btn-1:active {
+    cursor: pointer;
+    background: #23b3b8;
+}

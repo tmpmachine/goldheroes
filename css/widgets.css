@@ -4,8 +4,8 @@
 }
 
 .wg-RewardItem {
-  border: 1px solid grey;
-  border-radius: 4px;
-  padding: 5px;
-  background: #fff6da;
+  /* border: 1px solid grey; */
+  border-radius: 0.7rem;
+  padding: 0.8em;
+  background: #ffffff;
 }

@@ -52,6 +52,8 @@ let pwaCacher = (function() {
   }
     
   function ClearCache() {
+    let isConfirm = window.confirm('Are you sure?');
+    if (!isConfirm) return;
     
     caches.delete(local.cacheName)
       .then(() => {

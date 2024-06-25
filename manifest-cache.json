@@ -3,23 +3,33 @@
     "js/app.js",
     "js/app-data.js",
     "js/dom-events.js",
+    "js/ui.js",
+    "js/view-states-map.js",
+    
     "js/components/inventory-component.js",
     "js/components/reward-component.js",
     "js/components/stats-component.js",
-    "js/ui.js",
+    
     "js/uis/inventory-ui.js",
+    "js/uis/reward-ui.js",
+    
+    "js/utils/screen-state-util.js",
+    "js/utils/view-state-util.js",
+    "js/utils/wait.js",
     "js/utils/data-server.js",
     "js/utils/list-container-builder.js"
   ],
   "css": [
-    "/css/style.css",
-    "/css/widgets.css"
+    "css/normalize.min.css",
+    "css/skin.css",
+    "css/style.css",
+    "css/widgets.css"
   ],
   "root": [
     "pwa-cacher.js",
     "manifest.json",
     "index.html",
-    "/index.js",
+    "index.js",
     "./"
   ]
 }

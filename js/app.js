@@ -7,7 +7,10 @@ let app = (function() {
   
   function Init() {
     appData.Restore();
-    ui.Init();
+    
+    ui.RefreshGold();
+    uiReward.RefreshList();
+    uiInventory.RefreshList();
   }
   
   function ClearAppData() {

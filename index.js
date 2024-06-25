@@ -6,6 +6,20 @@ import { loadScripts } from './script-loader.js';
   loadScripts([
     {
       urls: [
+        "js/view-states-map.js",
+        "js/utils/view-state-util.js",
+        "js/utils/screen-state-util.js",
+        "js/dom-events.js",
+        "js/utils/wait.js",
+        "js/ui.js",
+      ],
+      callback: function() {
+        viewStateUtil.Init(viewStatesMap);
+        ui.Init();
+      }
+    },
+    {
+      urls: [
         "js/utils/data-server.js",
         "js/utils/list-container-builder.js",
       ],
@@ -14,12 +28,11 @@ import { loadScripts } from './script-loader.js';
       urls: [
         "js/app.js",
         "js/app-data.js",
-        "js/dom-events.js",
         "js/components/inventory-component.js",
         "js/components/reward-component.js",
         "js/components/stats-component.js",
-        "js/ui.js",
         "js/uis/inventory-ui.js",
+        "js/uis/reward-ui.js",
       ],
       callback: function() {
         app.Init();

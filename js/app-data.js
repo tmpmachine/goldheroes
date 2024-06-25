@@ -5,6 +5,7 @@ let appData = (function() {
     Save,
     Restore,
     Clear,
+    Export,
   };
   
   let data = {
@@ -14,13 +15,17 @@ let appData = (function() {
     }
   };
   
+  function Export() {
+    return JSON.stringify(data);
+  }
+  
   function Clear() {
     localStorage.removeItem('goldheroes-data');
   }
   
-  function Restore() {
+  function Restore(backupDataJSON) {
     let defaultDataJSON = JSON.stringify(data);
-    data = JSON.parse(localStorage.getItem('goldheroes-data') ?? defaultDataJSON);
+    data = JSON.parse(backupDataJSON ?? localStorage.getItem('goldheroes-data') ?? defaultDataJSON);
     
     compoReward.RestoreData?.(data.components.compoReward);
     compoStats.RestoreData?.(data.components.compoStats);

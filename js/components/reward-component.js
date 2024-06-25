@@ -4,6 +4,7 @@ let compoReward = (function() {
     Add,
     IncreaseBuyCount,
     // GetAll,
+    Update,
     Commit,
     RestoreData,
     // Remove,
@@ -34,6 +35,17 @@ let compoReward = (function() {
       GetItem: (item, value) => item.id == value,
     }
   });
+  
+  function Update(id, inputData) {
+    let existing = server.GetItem(id);
+    let {name, price} = inputData;
+    let item = Object.assign({}, existing, {
+      name,
+      price,
+    });
+    server.UpdateItem(id, item);
+    return item;
+  }
   
   function IncreaseBuyCount(id) {
     let existing = server.GetItem(id);

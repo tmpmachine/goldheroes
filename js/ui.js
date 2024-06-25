@@ -5,31 +5,55 @@ let ui = (function() {
   let SELF = {
     Init,
     Deposit,
-    HandleClickList,
     Edit,
-    AddReward,
+    RefreshGold,
+    BackupData,
+    RestoreData,
+    NavigateScreens,
   };
   
-  let listContainer = new ListContainerBuilder({
-    container: '._listRewards',
-    template: '#tmp-reward',
-    builder: (node, item) => buildListItem(node, item),
-    lookup: (containerEl, item) => containerEl.querySelector(`[data-id="${item.id}"]`),
-  });
-  
-  // # dom events
-  function handleClickAction(itemEl, action) {
+  function NavigateScreens(evt) {
+    let btnEl = evt.target;
+    let screenName = btnEl.dataset.target;
     
-    let data = {
-      id: itemEl.dataset.id,
+    screenStateUtil.NavigateTo(screenName);
+  }
+  
+  function BackupData() {
+    let data = appData.Export();
+    let blob = new Blob([data], {type: 'application/json'});
+    let url = URL.createObjectURL(blob);
+    
+    let el = document.createElement('a');
+    el.href = url;
+    el.target = '_blank';
+    el.download = `goldheroes-backup-${Date.now().toString()}.json`;
+    el.onclick = function() {
+      el.remove();
+    };
+    document.body.append(el);
+    el.click();
+  }
+  
+  function RestoreData() {
+    let input = document.createElement('input');
+    input.type ='file';
+    input.onchange = function() {
+      let file = input.files[0];
+      let reader = new FileReader();
+      reader.onload = async function(evt) {
+        let backupDataJSON = evt.target.result;
+        appData.Restore(backupDataJSON);
+        
+        appData.Save();
+        Init();
+      };
+      reader.readAsText(file);
     };
     
-    // # events map
-    switch (action) {
-      case 'buy': buy(data.id); break;
-      case 'remove': remove(data.id); break;
-    }
-    
+    document.body.append(input);
+    input.click();
+    input.remove();
   }
   
   function Edit() {
@@ -43,54 +67,9 @@ let ui = (function() {
     compoStats.Commit();
     appData.Save();
     
-    refreshGold();
+    RefreshGold();
   }
   
-  function remove(id) {
-    let isConfirm = window.confirm('Are you sure?');
-    if (!isConfirm) return;
-
-    compoReward.server.RemoveItem(id);
-    
-    compoReward.Commit();
-    appData.Save();
-    
-    refreshReward();
-  }
-  
-  function refreshSingleListItem(id) {
-    let item = compoReward.server.GetById(id);
-    if (!item) return;
-    
-    listContainer.RefreshSingle(item);
-  }
-  
-  function buy(id) {
-    let gold = compoStats.GetGold();
-    let item = compoReward.server.GetById(id);
-    if (!item) return;
-    
-    if (gold - item.price < 0) return;
-    
-    let isConfirm = window.confirm('Buy this reward?');
-    if (!isConfirm) return;
-    
-    compoStats.Spend(item.price);
-    compoReward.IncreaseBuyCount(item.id);
-    compoInventory.Add(item);
-    
-    compoInventory.Commit();
-    compoStats.Commit();
-    appData.Save();
-    
-    refreshGold();
-    uiInventory.RefreshList();
-    refreshSingleListItem(item.id);
-  }
-  
-  function foo(data) {
-      console.log('play', data);
-  }
   
   function HandleClickList(evt) {
     let targetEl = evt.target;
@@ -102,39 +81,6 @@ let ui = (function() {
     handleClickAction(itemEl, action);
   }
   
-  // # builder
-  function buildListItem(node, item) {
-    let itemEl = node.querySelector('[data-kind="item"]') ?? node;
-    itemEl.dataset.id = item.id;
-    itemEl.querySelector('.name').replaceChildren(item.name);
-    itemEl.querySelector('.price').replaceChildren(item.price);
-    if (item.buyCount > 0) {
-      itemEl.querySelector('.buy-count-info').replaceChildren(`Claimed ${item.buyCount} times`);
-    }
-    return itemEl;
-  }
-
-  function AddReward() {
-    let userVal = window.prompt('Reward name');
-    if (userVal === null) return;
-    
-    let price = window.prompt('Reward price');
-    if (price === null) return;
-    
-    compoReward.Add(userVal, parseInt(price));
-    
-    compoReward.Commit();
-    appData.Save();
-    
-    refreshReward();
-  }
-  
-  function refreshReward() {
-    let items = compoReward.server.GetAll();
-    
-    listContainer.Refresh(items);
-  }
-  
   function Deposit() {
     let userVal = window.prompt('Value');
     if (userVal === null) return;
@@ -144,20 +90,16 @@ let ui = (function() {
     compoStats.Commit();
     appData.Save();
     
-    refreshGold();
+    RefreshGold();
   }
   
-  function refreshGold() {
+  function RefreshGold() {
     let gold = compoStats.GetGold();
     $('._txtGold').replaceChildren(`${gold}`);
   }
   
   function Init() {
     DOMEvents.Init();
-    
-    refreshGold();
-    refreshReward();
-    uiInventory.RefreshList();
   }
   
   return SELF;
