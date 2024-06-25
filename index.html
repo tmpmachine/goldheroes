@@ -9,6 +9,8 @@
   
   <!-- pwa manifest -->
   <link rel="manifest" href="manifest.json"/>
+  <link href="css/widgets.css" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
 
 </head>
 <body>
@@ -29,25 +31,36 @@
   <!-- # rewards -->
   [h4 'Rewards']
   [btn 'Add reward' data-onclick="add-reward"]
-  [ ._listRewards data-onclick="handle-click-list"]
+  [ ._listRewards data-onclick="handle-click-list" .wg-Reward]
   
   <!-- # inventory -->
   [h4 'Inventory']
   [ ._listInventory data-onclick="handle-click-inventory"]
 
   <template id="tmp-reward">
-    [ data-kind="item"
-      [ .name]
-      [
-        Price: [s .price]
+    [ data-kind="item" .wg-RewardItem
+    <!-- # tmp-reward -->
+      [ .d-flex .justify-content-between .gap-half
+        [
+          [ .name]
+          [
+            Price: [s .price]
+          ]
+        ]
+        [ .d-flex .gap-half .flex-column
+          [ .d-flex .justify-content-end .gap-half
+            [btn 'Buy' data-action="buy"]
+            [btn 'Remove' data-action="remove"]
+          ]
+          [s .buy-count-info]
+        ]
       ]
-      [btn 'Buy' data-action="buy"]
-      [btn 'Remove' data-action="remove"]
     ]
   </template>
   
   <template id="tmp-inventory">
     [ data-kind="item"
+    <!-- # tmp-inventory -->
       [ .name]
       [
         Stock: [s .stock]

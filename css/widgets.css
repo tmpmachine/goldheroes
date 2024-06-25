@@ -1,0 +1,11 @@
+.wg-Reward {
+    display: grid;
+  gap: 0.3rem;
+}
+
+.wg-RewardItem {
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 5px;
+  background: #fff6da;
+}

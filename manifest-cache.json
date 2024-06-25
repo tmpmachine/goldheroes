@@ -1,5 +1,7 @@
 {
   "files": [
+    "/css/style.css",
+    "/css/widgets.css",
     "/app-data.js",
     "/app.js",
     "/data-server.js",

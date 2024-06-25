@@ -2,6 +2,7 @@ let compoReward = (function() {
   
   let SELF = {
     Add,
+    IncreaseBuyCount,
     // GetAll,
     Commit,
     RestoreData,
@@ -19,6 +20,7 @@ let compoReward = (function() {
   let data = {
     items: [],
   };
+  // # model
   let itemModel = {
     id: '',
     name: '',
@@ -32,6 +34,17 @@ let compoReward = (function() {
       GetItem: (item, value) => item.id == value,
     }
   });
+  
+  function IncreaseBuyCount(id) {
+    let existing = server.GetItem(id);
+    if (!existing) return;
+    
+    let {buyCount} = existing;
+    let item = Object.assign({}, existing, {
+      buyCount: buyCount + 1,
+    });
+    server.UpdateItem(id, item);
+  }
   
   function RestoreData(restoredData) {
     if (restoredData) {

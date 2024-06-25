@@ -58,6 +58,13 @@ let ui = (function() {
     refreshReward();
   }
   
+  function refreshSingleListItem(id) {
+    let item = compoReward.server.GetById(id);
+    if (!item) return;
+    
+    listContainer.RefreshSingle(item);
+  }
+  
   function buy(id) {
     let gold = compoStats.GetGold();
     let item = compoReward.server.GetById(id);
@@ -69,6 +76,7 @@ let ui = (function() {
     if (!isConfirm) return;
     
     compoStats.Spend(item.price);
+    compoReward.IncreaseBuyCount(item.id);
     compoInventory.Add(item);
     
     compoInventory.Commit();
@@ -77,6 +85,7 @@ let ui = (function() {
     
     refreshGold();
     uiInventory.RefreshList();
+    refreshSingleListItem(item.id);
   }
   
   function foo(data) {
@@ -93,11 +102,15 @@ let ui = (function() {
     handleClickAction(itemEl, action);
   }
   
+  // # builder
   function buildListItem(node, item) {
     let itemEl = node.querySelector('[data-kind="item"]') ?? node;
     itemEl.dataset.id = item.id;
     itemEl.querySelector('.name').replaceChildren(item.name);
     itemEl.querySelector('.price').replaceChildren(item.price);
+    if (item.buyCount > 0) {
+      itemEl.querySelector('.buy-count-info').replaceChildren(`Claimed ${item.buyCount} times`);
+    }
     return itemEl;
   }
 
